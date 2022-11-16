@@ -1,0 +1,50 @@
+extends layout.pug
+
+        
+block main
+        
+        h1(style="display: flex; align-items: flex-start;padding-top: 10px;padding-bottom: 10px;padding-left: 10px; ") STOCKS ONLINE
+        //- Temperature Default: Kelvin, convert to Celsius
+        - let temp=Math.round(parseFloat(weatherData["temp"])-273.15)
+        div.weather
+                p CITY: #{weatherData["city"]}
+                p WEATHER: #{weatherData["weather"]}
+                p TEMP: #{temp}°C
+                p HUMIDITY: #{weatherData["humidity"]}%
+                p #{noData}
+               
+        
+        div.stock-holiday
+                div.stockinfo
+                        img(src=stockData["image"], alt=stockData["image"] width=200, height=200)
+                        h2 #{stockData["company"]}
+                        
+                        div.index
+                                
+                                pre #{stockData["symbol"]}   #{stockData["industry"]}   #{stockData["exchangeShortName"]}    
+                                - let changeRate=parseFloat(stockData["changes"]).toFixed(2)
+                                - let col=chageRate>=0?"green":"red"
+                                - let fontcolor={"color":col}
+                                pre(style=fontcolor) #{stockData["price"]}$    #{changeRate}% 
+                                
+                        div
+                                p #{stockData["address"]}; #{stockData["city"]}; #{stockData["country"]}
+                                
+                        div
+                                p #{stockData["description"]}
+                               
+                        div.buttons 
+                                a(href=stockData["website"] target="_blank")  #{stockData["website"]}
+                                button(button type="button" class="btn btn-dark" onclick="window.location.href='/';") Back to Homepage
+
+                                form(action="/searchNews" methon="GET")        
+                                        button(type="submit" class="btn btn-success" name="searchterm" value=stockData["symbol"]) News
+                
+                div.holiday
+                        - let year=new Date().getFullYear();
+                        - 
+                        h1(style="display: flex; align-items: flex-start;padding-top: 10px;") #{stockData["country"]} #{year}
+                        br
+                        h3 PUBLIC HOLIDAYS
+                        each holiday in holidaysData
+                                pre=holiday["date"]+"   "+holiday["name"]

@@ -1,0 +1,76 @@
+extends layout.pug
+block main
+        div.nav
+                h1(style="display: flex; align-items: flex-start;padding-top: 10px;padding-bottom: 3px;padding-left: 10px; ") STOCKS ONLINE
+                button(button type="button" class="btn btn-dark" onclick="window.location.href='/';" style="margin-right: 20px; height:50px") Back to Homepage
+       
+        h2(style="display: flex; align-items: flex-start;padding-left: 10px; ") Current 3days News
+
+        div.section
+                h3(style="display: flex; align-items: flex-start;padding-top: 5px;padding-bottom: 0;padding-left: 20px;") #{stock}
+                h3(style="display: flex; align-items: flex-start;padding-top: 5px;padding-bottom: 0;padding-left: 10px;") Peer Stocks:                      
+                        form(action="/search" methon="GET")        
+                                                button(type="submit" class="btn btn-outline-info" style="color: white; margin-left:10px" name="searchterm" value=peerStock[0])  #{peerStock[0]}
+                        form(action="/search" methon="GET")        
+                                                button(type="submit" class="btn btn-outline-info" style="color: white; margin-left:10px" name="searchterm" value=peerStock[1])  #{peerStock[1]}
+                        form(action="/search" methon="GET")        
+                                                button(type="submit" class="btn btn-outline-info" style="color: white; margin-left:10px" name="searchterm" value=peerStock[2])  #{peerStock[2]}
+                        form(action="/search" methon="GET")        
+                                                button(type="submit" class="btn btn-outline-info" style="color: white; margin-left:10px" name="searchterm" value=peerStock[3])  #{peerStock[3]}
+                
+        div.newsContent
+                
+                div.stockContent
+                        
+                
+                        div.stock-news
+                                div.stocknews
+                                        each n in news
+                                                div.eachnews
+                                                        a(href=n["url"] target="_blank")
+                                                                img(src=n["image"]?n["image"]:"https://picsum.photos/700", alt="", onerror="this.remove()" width=270,height=160)
+                                                        h3=n["headline"]
+                                                        p=n["summary"]
+                                        
+                div.peerContent         
+                        - let len1=peer1news.length
+                        - let len2=peer2news.length
+                        - let len3=peer3news.length
+                        - let len4=peer4news.length
+                        
+
+                        
+                        div.peer-news
+                                div.stocknews
+                                        if len1
+                                                each n in peer1news
+                                                        div.eachnews
+                                                                a(href=n["url"] target="_blank")
+                                                                        img(src=n["image"]?n["image"]:"https://picsum.photos/700", alt="", onerror="this.remove()" width=270,height=160)
+                                                                h3=n["headline"]
+                                                                p=n["summary"]
+                                        else if len2
+                                                each n in peer2news
+                                                        div.eachnews
+                                                                a(href=n["url"] target="_blank")
+                                                                        img(src=n["image"]?n["image"]:"https://picsum.photos/700", alt="", onerror="this.remove()" width=270,height=160)
+                                                                h3=n["headline"]
+                                                                p=n["summary"] 
+                                        else if len3
+                                                each n in peer3news
+                                                        div.eachnews
+                                                                a(href=n["url"] target="_blank")
+                                                                        img(src=n["image"]?n["image"]:"https://picsum.photos/700", alt="", onerror="this.remove()" width=270,height=160)
+                                                                h3=n["headline"]
+                                                                p=n["summary"] 
+                                        else if len4
+                                                each n in peer4news
+                                                        div.eachnews
+                                                                a(href=n["url"] target="_blank")
+                                                                        img(src=n["image"]?n["image"]:"https://picsum.photos/700", alt="", onerror="this.remove()" width=270,height=160)
+                                                                h3=n["headline"]
+                                                                p=n["summary"] 
+                                
+                 
+                
+        

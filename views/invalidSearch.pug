@@ -1,0 +1,13 @@
+extends layout.pug
+block main
+    div.notfound
+        form(action="/search" methon="GET")
+                        div.mb-3
+                                h1(style="color:yellow") Invalid Input
+                                label.form-label Invaild symbol, please enter a valid NASDAQ stock symbol
+                                
+
+                                input.form-control(type="text" placeholder="Enter a stock symbol" name="searchterm" size="50" required)
+                        button.btn.btn-primary(type="submit") SEARCH
+       
+        
